@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -225,35 +226,6 @@ a{color:var(--gold);text-decoration:none}
 .badge-red{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
 .badge-yellow{background:#fef9c3;color:#854d0e;border:1px solid #fde68a}
 .badge-blue{background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe}
-.badge-purple{background:#ede9fe;color:#5b21b6;border:1px solid #ddd6fe}
-
-/* ── REQUEST PAGE AUTOCOMPLETE ── */
-.rq-ac-wrap{position:relative}
-.rq-suggest{
-  position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:50;
-  background:var(--surface);border:1.5px solid var(--border2);border-radius:12px;
-  box-shadow:var(--sh-md);max-height:260px;overflow-y:auto;padding:6px;
-}
-.rq-suggest.hidden{display:none}
-.rq-suggest-item{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:10px 12px;border-radius:8px;cursor:pointer;transition:background var(--transition);
-}
-.rq-suggest-item:hover,.rq-suggest-item:focus{background:var(--gold-pale)}
-.rq-suggest-item + .rq-suggest-item{margin-top:2px}
-.rq-suggest-main{min-width:0}
-.rq-suggest-title{font-weight:700;color:var(--brown-dark);font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rq-suggest-sub{font-size:.76rem;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rq-suggest-empty{padding:14px 12px;font-size:.82rem;color:var(--text3);text-align:center}
-.rq-status-box{
-  display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-radius:12px;
-  font-size:.85rem;line-height:1.5;
-}
-.rq-status-box.hidden{display:none}
-.rq-status-box svg{flex-shrink:0;margin-top:2px}
-.rq-status-box.st-new{background:var(--gold-pale);border:1.5px solid var(--gold-border);color:var(--brown)}
-.rq-status-box.st-borrowed{background:#fef9c3;border:1.5px solid #fde68a;color:#854d0e}
-.rq-status-box.st-available{background:#dcfce7;border:1.5px solid #bbf7d0;color:#166534}
 
 /* ── AUTH PAGE ── */
 .auth-wrap{width:100%;max-width:480px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 28px;box-shadow:var(--sh-lg);position:relative;overflow:hidden;margin-top:24px;}
@@ -269,6 +241,8 @@ a{color:var(--gold);text-decoration:none}
 .auth-tabs{display:flex;background:var(--bg2);border-radius:9px;padding:4px;gap:3px;border:1px solid var(--border);margin-bottom:22px;}
 .auth-tab{flex:1;padding:9px;text-align:center;border-radius:6px;cursor:pointer;font-size:.83rem;font-weight:600;color:var(--text3);transition:all var(--transition);border:none;background:none;font-family:var(--sans);display:flex;align-items:center;justify-content:center;gap:6px;}
 .auth-tab.active{background:var(--surface);color:var(--brown-dark);box-shadow:var(--sh-xs);border:1px solid var(--border)}
+.demo-hint{background:linear-gradient(135deg,var(--cream),var(--cream2));border:1px solid var(--gold-border);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:.78rem;color:var(--text2);text-align:center;line-height:1.7;}
+.demo-hint strong{color:var(--gold-d)}
 .otp-row{display:flex;gap:8px;justify-content:center;margin:14px 0}
 .otp-box{width:44px;height:50px;text-align:center;font-size:1.3rem;font-weight:700;border:1.5px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--text);font-family:var(--serif);outline:none;transition:all var(--transition);}
 .otp-box:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.12)}
@@ -794,6 +768,11 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
       <div class="lib-name" id="auth-name">Akshardhara Vachnalay</div>
       <div class="lib-loc" id="auth-loc"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> अक्षरधारा वाचनालय, आकनूर</div>
     </div>
+    <button class="btn btn-google" onclick="handleGoogleSignIn()">
+      <svg width="19" height="19" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      <span data-i18n="google_btn">Continue with Google</span>
+    </button>
+    <div class="auth-divider"><span data-i18n="or">OR</span></div>
     <div class="auth-tabs">
       <button class="auth-tab active" id="tab-l" onclick="switchTab('login')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="login">Login</span></button>
       <button class="auth-tab" id="tab-r" onclick="switchTab('reg')"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> <span data-i18n="register">Register</span></button>
@@ -813,6 +792,11 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
         </div>
       </div>
       <button class="btn btn-primary btn-block" onclick="doLogin()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> <span data-i18n="login_btn">Login to Library</span></button>
+      <div class="demo-hint">
+        <strong data-i18n="demo_hint">Demo Login (Mock Mode)</strong><br>
+        Admin: <strong>admin@test.com</strong> &nbsp;|&nbsp; Reader: <strong>demo@test.com</strong><br>
+        <span class="text-muted" data-i18n="demo_pw">Any password works in demo</span>
+      </div>
     </div>
 
     <!-- REGISTER Step 1 -->
@@ -828,6 +812,7 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
             <label><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-i18n="email_l">Email *</span></label>
             <div class="email-wrap">
               <input class="input" id="r-email" type="email" placeholder="your@email.com">
+              <span class="lock-tag" id="email-lock"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Locked</span>
             </div>
           </div>
         </div>
@@ -841,7 +826,30 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
             <div class="pw-wrap"><input class="input" id="r-cpw" type="password" placeholder="Re-enter password"><button class="pw-eye" id="eye-rcpw" onclick="togPw('r-cpw','eye-rcpw')" tabindex="-1" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
           </div>
         </div>
-        <button class="btn btn-gold btn-block" onclick="doRegister()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="send_otp">Create Account</span></button>
+        <button class="btn btn-gold btn-block" onclick="sendOTP()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-i18n="send_otp">Send OTP to Email</span></button>
+      </div>
+      <!-- Step 2 OTP -->
+      <div id="reg-s2" class="hidden">
+        <div class="info-box gold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div><div style="font-weight:600;color:var(--text2);font-size:.86rem" data-i18n="otp_sent">OTP sent to:</div><div id="otp-email-show" style="color:var(--gold);font-weight:700;font-size:.92rem"></div></div>
+        </div>
+        <div class="form-group"><label data-i18n="otp_l">Enter 6-Digit OTP</label>
+          <div class="otp-row">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,0)">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,1)">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,2)">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,3)">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,4)">
+            <input class="otp-box" maxlength="1" type="text" inputmode="numeric" oninput="otpNav(this,5)">
+          </div>
+        </div>
+        <div class="flex gap-8">
+          <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="verifyOTP()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="verify_btn">Verify &amp; Create Account</span></button>
+          <button class="btn btn-outline btn-sm" onclick="backToS1()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> <span data-i18n="back">Back</span></button>
+        </div>
+        <p class="tc mt-14 text-muted"><span data-i18n="no_otp">Didn't receive OTP?</span>
+          <button style="background:none;border:none;color:var(--gold);cursor:pointer;font-weight:600;font-size:.82rem;font-family:var(--sans)" onclick="resendOTP()" data-i18n="resend">Resend OTP</button></p>
       </div>
     </div>
     <p class="tc mt-20 text-muted" data-i18n="terms">By continuing you agree to library terms &amp; conditions.</p>
@@ -911,29 +919,22 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
       </div>
 
       <div style="background:var(--surface);border:1px solid rgba(0,0,0,0.06);border-radius:20px;padding:40px;box-shadow:0 12px 32px rgba(30,10,5,0.04);">
-
-        <div class="form-group rq-ac-wrap" style="margin-bottom:24px;">
+        
+        <div class="form-group" style="margin-bottom:24px;">
           <label style="font-size:0.9rem; font-weight:600; color:var(--brown-dark); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-d)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> 
             <span data-i18n="bk_name">Book Name *</span>
           </label>
-          <input class="input" id="rq-name" type="text" autocomplete="off" placeholder="Start typing a book title..." data-i18n-ph="ph_bk_name" style="padding:14px 16px; border-radius:12px; font-size:0.95rem; background:rgba(0,0,0,0.02); border:1.5px solid rgba(0,0,0,0.08);" oninput="rqOnNameInput(this.value)" onfocus="rqOnNameInput(this.value)">
-          <div class="rq-suggest hidden" id="rq-name-suggest"></div>
+          <input class="input" id="rq-name" type="text" placeholder="Enter book title" data-i18n-ph="ph_bk_name" style="padding:14px 16px; border-radius:12px; font-size:0.95rem; background:rgba(0,0,0,0.02); border:1.5px solid rgba(0,0,0,0.08);">
         </div>
 
-        <div class="form-group rq-ac-wrap" style="margin-bottom:18px;">
+        <div class="form-group" style="margin-bottom:32px;">
           <label style="font-size:0.9rem; font-weight:600; color:var(--brown-dark); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-d)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> 
             <span data-i18n="auth_name">Author Name</span>
           </label>
-          <input class="input" id="rq-author" type="text" autocomplete="off" placeholder="Start typing an author name..." data-i18n-ph="ph_auth_name" style="padding:14px 16px; border-radius:12px; font-size:0.95rem; background:rgba(0,0,0,0.02); border:1.5px solid rgba(0,0,0,0.08);" oninput="rqOnAuthorInput(this.value)" onfocus="rqOnAuthorInput(this.value)">
-          <div class="rq-suggest hidden" id="rq-author-suggest"></div>
+          <input class="input" id="rq-author" type="text" placeholder="Enter author name" data-i18n-ph="ph_auth_name" style="padding:14px 16px; border-radius:12px; font-size:0.95rem; background:rgba(0,0,0,0.02); border:1.5px solid rgba(0,0,0,0.08);">
         </div>
-
-        <input type="hidden" id="rq-book-id" value="">
-        <input type="hidden" id="rq-type" value="new">
-
-        <div id="rq-status-box" class="rq-status-box hidden" style="margin-bottom:28px;"></div>
 
         <button class="btn btn-primary" onclick="submitReq()" style="width:100%; padding:14px; border-radius:12px; font-size:1rem; justify-content:center; background:linear-gradient(145deg, var(--brown-dark), #2a1306); box-shadow:0 4px 12px rgba(30,10,5,0.2);">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> 
@@ -992,13 +993,7 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
 
     <div id="a-reqs" class="admin-sec">
       <h3 class="mb-20" data-i18n="a_reqs">Book Requests</h3>
-      <div class="admin-tabs" style="margin-bottom:16px;">
-        <button class="atab rqftab active" onclick="rqFilter('all',this)">All Requests</button>
-        <button class="atab rqftab" onclick="rqFilter('new',this)">🆕 New Book Requests</button>
-        <button class="atab rqftab" onclick="rqFilter('borrowed',this)">📖 Borrowed Book Requests</button>
-      </div>
-      <div class="tbl-wrap"><table><thead><tr><th data-i18n="bk_name">Book</th><th data-i18n="auth_name">Author</th><th data-i18n="col_reader">Requested By</th><th>Contact</th><th>Type</th><th>Date</th><th data-i18n="col_st">Status</th><th>Actions</th></tr></thead><tbody id="rq-body"></tbody></table></div>
-      <div class="empty hidden" id="rq-empty"><h3>No requests here</h3><p>There's nothing in this category yet.</p></div>
+      <div class="tbl-wrap"><table><thead><tr><th data-i18n="bk_name">Book</th><th data-i18n="auth_name">Author</th><th data-i18n="col_reader">Requested By</th><th>Date</th><th data-i18n="col_st">Status</th><th>Actions</th></tr></thead><tbody id="rq-body"></tbody></table></div>
     </div>
 
     <div id="a-users" class="admin-sec">
@@ -1043,12 +1038,13 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
 
 <script>
 
-const GAS_URL='https://script.google.com/macros/s/AKfycbwqmH2IAKWgeBpIlN7xMxIXf-DxMKCYSzNu2QHUjFGqRSPL4tnbwXfG7w-yheOpbCRJ4g/exec';
-let CU=null,BOOKS=[],LANG='en',PENDING_BK=null,RQ_SELECTED=null;
+const GAS_URL='YOUR_GAS_WEB_APP_URL_HERE';
+const G_CLIENT='YOUR_GOOGLE_CLIENT_ID_HERE';
+let CU=null,BOOKS=[],LANG='en',PENDING_BK=null;
 
 const T={
-en:{nav_sub:'Community Library &middot; Aknoor',nav_home:'Home',nav_books:'Books',nav_mybooks:'My Books',nav_req:'Request',nav_admin:'Admin',logout:'Logout',loading:'Loading...',google_btn:'Continue with Google',or:'OR',login:'Login',register:'Register',email_l:'Email Address',pw_l:'Password',cpw_l:'Confirm Password',name_l:'Full Name',mob_l:'Mobile Number',age_l:'Age',send_otp:'Create Account',login_btn:'Login to Library',terms:'By continuing you agree to library terms & conditions.',hero_badge:'Community Library',hero_sub:'Welcome to our library. Discover books, borrow with ease, and enrich your mind.',browse_btn:'Browse Books',req_btn:'Request a Book',total_bks:'Total Books',avail_bks:'Available',readers:'Readers',featured:'Featured Books',view_all:'View All',all_bks:'All Books',all_bks_sub:'Browse our complete collection.',no_bks:'No books found',no_bks_sub:'Try a different search term.',my_bks:'My Borrowed Books',no_myb:'No Borrowed Books',no_myb_sub:"You haven't borrowed any books yet.",req_pg:'Request a Book',req_pg_sub:"Can't find a book? Let us know!",bk_name:'Book Name',auth_name:'Author Name',submit_req:'Submit Request',admin_pg:'Admin Panel',a_dash:'Dashboard',a_bks:'Manage Books',a_borrows:'Borrowed',a_reqs:'Requests',a_users:'Users',active_brs:'Active Borrows',pend_reqs:'Pending Requests',overdue:'Overdue Books',add_bk:'Add Book',save_bk:'Save Book',price_l:'Price (₹)',cancel:'Cancel',borrow_bk:'Borrow Book',due_note:'Due date (10 days):',confirm_borrow:'Confirm Borrow',avail:'Available',borrowed_st:'Borrowed',returned_st:'Returned',pending_st:'Pending',fulfilled_st:'Fulfilled',rejected_st:'Rejected',make_admin:'Make Admin',make_reader:'Make Reader',mark_ret:'Mark Returned',fulfill:'Fulfill',reject:'Reject',edit:'Edit',delete:'Delete',col_bk:'Book',col_reader:'Reader',col_borrowed:'Borrowed On',col_due:'Due Date',col_st:'Status',ph_email:'your@email.com',ph_pw:'Enter your password',ph_name:'Your full name',ph_mob:'10-digit number',ph_age:'Your age',ph_pw_min:'Min 6 characters',ph_cpw:'Re-enter password',ph_search:'Search by title or author...',ph_bk_name:'Enter book title',ph_auth_name:'Enter author name',col_pub:'Publication',ph_pub:'Enter publication',ph_fname:'Full name',ph_mob_10:'10-digit mobile',borrow_success:'Book borrowed successfully!',add_success:'Book added successfully!',update_success:'Book updated successfully!',ret_success:'Book returned successfully!',ph_price:'0',footer_cr:'&copy; 2025 Akshardhara Vachnalay. All rights reserved. | Designed by Vinayraj Kore',footer_copy:'&copy; 2025 Akshardhara Vachnalay. All rights reserved.',footer_by:'Designed by',borrowed_by:'Borrowed by',contact:'Contact',notice_admin_title:'Notice Bar',notice_admin_sub:'Set a scrolling announcement shown to everyone below the header. Leave blank and save to remove it.',notice_ph:'e.g. Library closed on 15th Aug for Independence Day.',notice_save:'Update Notice',notice_clear:'Remove Notice',notice_saved:'Notice updated!',notice_removed:'Notice removed',notice_tag:'Notice'},
-mr:{nav_sub:'समुदाय वाचनालय – आकनूर',nav_home:'मुख्य पृष्ठ',nav_books:'पुस्तके',nav_mybooks:'माझी पुस्तके',nav_req:'विनंती',nav_admin:'प्रशासक',logout:'लॉगआउट',loading:'लोड होत आहे...',google_btn:'Google ने सुरू ठेवा',or:'किंवा',login:'लॉगिन',register:'नोंदणी',email_l:'ईमेल पत्ता',pw_l:'पासवर्ड',cpw_l:'पुन्हा पासवर्ड',name_l:'पूर्ण नाव',mob_l:'मोबाईल नंबर',age_l:'वय',send_otp:'खाते तयार करा',login_btn:'वाचनालयात लॉगिन करा',terms:'पुढे जाऊन आपण अटी मान्य करता.',hero_badge:'समुदाय वाचनालय',hero_sub:'तुमच्या वाचनालयात स्वागत. पुस्तके शोधा आणि ज्ञान मिळवा.',browse_btn:'पुस्तके पाहा',req_btn:'पुस्तक मागणी',total_bks:'एकूण पुस्तके',avail_bks:'उपलब्ध',readers:'वाचक',featured:'वैशिष्ट्यीकृत पुस्तके',view_all:'सर्व पाहा',all_bks:'सर्व पुस्तके',all_bks_sub:'संपूर्ण संग्रह पाहा.',no_bks:'पुस्तक सापडले नाही',no_bks_sub:'वेगळे शोध शब्द वापरा.',my_bks:'माझी वाचायला पुस्तके',no_myb:'वाचायला पुस्तके नाहीत',no_myb_sub:'अजून पुस्तक वाचायला घेतले नाही.',req_pg:'पुस्तक मागणी',req_pg_sub:'पुस्तक सापडत नाही? मागणी सादर करा!',bk_name:'पुस्तकाचे नाव',auth_name:'लेखकाचे नाव',submit_req:'मागणी सादर करा',admin_pg:'प्रशासक पॅनेल',a_dash:'डॅशबोर्ड',a_bks:'पुस्तके व्यवस्थापित करा',a_borrows:'वाचायला',a_reqs:'मागण्या',a_users:'वापरकर्ते',active_brs:'सक्रिय वाचायला',pend_reqs:'प्रलंबित मागण्या',overdue:'थकीत पुस्तके',add_bk:'पुस्तक जोडा',save_bk:'जतन करा',price_l:'किंमत (₹)',cancel:'रद्द करा',borrow_bk:'पुस्तक वाचायला घ्या',due_note:'परत तारीख :',confirm_borrow:'वाचायला निश्चित करा',avail:'उपलब्ध',borrowed_st:'वाचकास दिले',returned_st:'परत केले',pending_st:'प्रलंबित',fulfilled_st:'पूर्ण',rejected_st:'नाकारले',make_admin:'प्रशासक करा',make_reader:'वाचक करा',mark_ret:'परत चिन्हांकित करा',fulfill:'पूर्ण करा',reject:'नाकारा',edit:'संपादित करा',delete:'हटवा',col_bk:'पुस्तक',col_reader:'वाचक',col_borrowed:'वाचायला घेतले',col_due:'परत तारीख',col_st:'स्थिती',ph_email:'tumcha@email.com',ph_pw:'पासवर्ड टाका',ph_name:'तुमचे पूर्ण नाव',ph_mob:'१०-अंकी क्रमांक',ph_age:'तुमचे वय',ph_pw_min:'किमान ६ अक्षरे',ph_cpw:'पासवर्ड पुन्हा टाका',ph_search:'शीर्षक किंवा लेखकाने शोधा...',ph_bk_name:'पुस्तकाचे नाव टाका',ph_auth_name:'लेखकाचे नाव टाका',col_pub:'प्रकाशन',ph_pub:'प्रकाशन टाका',ph_fname:'पूर्ण नाव',ph_mob_10:'१०-अंकी मोबाईल',borrow_success:'पुस्तक यशस्वीरित्या वाचायला दिले!',add_success:'पुस्तक यशस्वीरित्या जोडले!',update_success:'पुस्तक यशस्वीरित्या अपडेट केले!',ret_success:'पुस्तक यशस्वीरित्या परत केले!',ph_price:'०',footer_cr:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव. | डिझाईन: विनयराज कोरे',footer_copy:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव.',footer_by:'डिझाईन:',borrowed_by:'वाचकाचे नाव',contact:'संपर्क',notice_admin_title:'सूचना पट्टी',notice_admin_sub:'हेडरखाली सर्वांना दिसणारी सरकती सूचना सेट करा. काढण्यासाठी रिकामे ठेवून जतन करा.',notice_ph:'उदा. १५ ऑगस्ट रोजी वाचनालय बंद राहील.',notice_save:'सूचना अद्ययावत करा',notice_clear:'सूचना काढा',notice_saved:'सूचना अद्ययावत झाली!',notice_removed:'सूचना काढली',notice_tag:'सूचना'}
+en:{nav_sub:'Community Library &middot; Aknoor',nav_home:'Home',nav_books:'Books',nav_mybooks:'My Books',nav_req:'Request',nav_admin:'Admin',logout:'Logout',loading:'Loading...',google_btn:'Continue with Google',or:'OR',login:'Login',register:'Register',email_l:'Email Address',pw_l:'Password',cpw_l:'Confirm Password',name_l:'Full Name',mob_l:'Mobile Number',age_l:'Age',send_otp:'Send OTP to Email',otp_sent:'OTP sent to:',otp_l:'Enter 6-Digit OTP',verify_btn:'Verify & Create Account',back:'Back',no_otp:"Didn't receive OTP?",resend:'Resend OTP',login_btn:'Login to Library',terms:'By continuing you agree to library terms & conditions.',demo_hint:'Demo Login (Mock Mode)',demo_pw:'Any password works in demo',hero_badge:'Community Library',hero_sub:'Welcome to our library. Discover books, borrow with ease, and enrich your mind.',browse_btn:'Browse Books',req_btn:'Request a Book',total_bks:'Total Books',avail_bks:'Available',readers:'Readers',featured:'Featured Books',view_all:'View All',all_bks:'All Books',all_bks_sub:'Browse our complete collection.',no_bks:'No books found',no_bks_sub:'Try a different search term.',my_bks:'My Borrowed Books',no_myb:'No Borrowed Books',no_myb_sub:"You haven't borrowed any books yet.",req_pg:'Request a Book',req_pg_sub:"Can't find a book? Let us know!",bk_name:'Book Name',auth_name:'Author Name',submit_req:'Submit Request',admin_pg:'Admin Panel',a_dash:'Dashboard',a_bks:'Manage Books',a_borrows:'Borrowed',a_reqs:'Requests',a_users:'Users',active_brs:'Active Borrows',pend_reqs:'Pending Requests',overdue:'Overdue Books',add_bk:'Add Book',save_bk:'Save Book',price_l:'Price (₹)',cancel:'Cancel',borrow_bk:'Borrow Book',due_note:'Due date (10 days):',confirm_borrow:'Confirm Borrow',avail:'Available',borrowed_st:'Borrowed',returned_st:'Returned',pending_st:'Pending',fulfilled_st:'Fulfilled',rejected_st:'Rejected',make_admin:'Make Admin',make_reader:'Make Reader',mark_ret:'Mark Returned',fulfill:'Fulfill',reject:'Reject',edit:'Edit',delete:'Delete',col_bk:'Book',col_reader:'Reader',col_borrowed:'Borrowed On',col_due:'Due Date',col_st:'Status',ph_email:'your@email.com',ph_pw:'Enter your password',ph_name:'Your full name',ph_mob:'10-digit number',ph_age:'Your age',ph_pw_min:'Min 6 characters',ph_cpw:'Re-enter password',ph_search:'Search by title or author...',ph_bk_name:'Enter book title',ph_auth_name:'Enter author name',col_pub:'Publication',ph_pub:'Enter publication',ph_fname:'Full name',ph_mob_10:'10-digit mobile',borrow_success:'Book borrowed successfully!',add_success:'Book added successfully!',update_success:'Book updated successfully!',ret_success:'Book returned successfully!',ph_price:'0',footer_cr:'&copy; 2025 Akshardhara Vachnalay. All rights reserved. | Designed by Vinayraj Kore',footer_copy:'&copy; 2025 Akshardhara Vachnalay. All rights reserved.',footer_by:'Designed by',borrowed_by:'Borrowed by',contact:'Contact',notice_admin_title:'Notice Bar',notice_admin_sub:'Set a scrolling announcement shown to everyone below the header. Leave blank and save to remove it.',notice_ph:'e.g. Library closed on 15th Aug for Independence Day.',notice_save:'Update Notice',notice_clear:'Remove Notice',notice_saved:'Notice updated!',notice_removed:'Notice removed',notice_tag:'Notice'},
+mr:{nav_sub:'समुदाय वाचनालय – आकनूर',nav_home:'मुख्य पृष्ठ',nav_books:'पुस्तके',nav_mybooks:'माझी पुस्तके',nav_req:'विनंती',nav_admin:'प्रशासक',logout:'लॉगआउट',loading:'लोड होत आहे...',google_btn:'Google ने सुरू ठेवा',or:'किंवा',login:'लॉगिन',register:'नोंदणी',email_l:'ईमेल पत्ता',pw_l:'पासवर्ड',cpw_l:'पुन्हा पासवर्ड',name_l:'पूर्ण नाव',mob_l:'मोबाईल नंबर',age_l:'वय',send_otp:'ईमेलवर OTP पाठवा',otp_sent:'OTP पाठवले:',otp_l:'६ अंकी OTP टाका',verify_btn:'सत्यापित करा',back:'मागे',no_otp:'OTP मिळाले नाही?',resend:'OTP पुन्हा पाठवा',login_btn:'वाचनालयात लॉगिन करा',terms:'पुढे जाऊन आपण अटी मान्य करता.',demo_hint:'डेमो लॉगिन',demo_pw:'कोणताही पासवर्ड',hero_badge:'समुदाय वाचनालय',hero_sub:'तुमच्या वाचनालयात स्वागत. पुस्तके शोधा आणि ज्ञान मिळवा.',browse_btn:'पुस्तके पाहा',req_btn:'पुस्तक मागणी',total_bks:'एकूण पुस्तके',avail_bks:'उपलब्ध',readers:'वाचक',featured:'वैशिष्ट्यीकृत पुस्तके',view_all:'सर्व पाहा',all_bks:'सर्व पुस्तके',all_bks_sub:'संपूर्ण संग्रह पाहा.',no_bks:'पुस्तक सापडले नाही',no_bks_sub:'वेगळे शोध शब्द वापरा.',my_bks:'माझी वाचायला पुस्तके',no_myb:'वाचायला पुस्तके नाहीत',no_myb_sub:'अजून पुस्तक वाचायला घेतले नाही.',req_pg:'पुस्तक मागणी',req_pg_sub:'पुस्तक सापडत नाही? मागणी सादर करा!',bk_name:'पुस्तकाचे नाव',auth_name:'लेखकाचे नाव',submit_req:'मागणी सादर करा',admin_pg:'प्रशासक पॅनेल',a_dash:'डॅशबोर्ड',a_bks:'पुस्तके व्यवस्थापित करा',a_borrows:'वाचायला',a_reqs:'मागण्या',a_users:'वापरकर्ते',active_brs:'सक्रिय वाचायला',pend_reqs:'प्रलंबित मागण्या',overdue:'थकीत पुस्तके',add_bk:'पुस्तक जोडा',save_bk:'जतन करा',price_l:'किंमत (₹)',cancel:'रद्द करा',borrow_bk:'पुस्तक वाचायला घ्या',due_note:'परत तारीख :',confirm_borrow:'वाचायला निश्चित करा',avail:'उपलब्ध',borrowed_st:'वाचकास दिले',returned_st:'परत केले',pending_st:'प्रलंबित',fulfilled_st:'पूर्ण',rejected_st:'नाकारले',make_admin:'प्रशासक करा',make_reader:'वाचक करा',mark_ret:'परत चिन्हांकित करा',fulfill:'पूर्ण करा',reject:'नाकारा',edit:'संपादित करा',delete:'हटवा',col_bk:'पुस्तक',col_reader:'वाचक',col_borrowed:'वाचायला घेतले',col_due:'परत तारीख',col_st:'स्थिती',ph_email:'tumcha@email.com',ph_pw:'पासवर्ड टाका',ph_name:'तुमचे पूर्ण नाव',ph_mob:'१०-अंकी क्रमांक',ph_age:'तुमचे वय',ph_pw_min:'किमान ६ अक्षरे',ph_cpw:'पासवर्ड पुन्हा टाका',ph_search:'शीर्षक किंवा लेखकाने शोधा...',ph_bk_name:'पुस्तकाचे नाव टाका',ph_auth_name:'लेखकाचे नाव टाका',col_pub:'प्रकाशन',ph_pub:'प्रकाशन टाका',ph_fname:'पूर्ण नाव',ph_mob_10:'१०-अंकी मोबाईल',borrow_success:'पुस्तक यशस्वीरित्या वाचायला दिले!',add_success:'पुस्तक यशस्वीरित्या जोडले!',update_success:'पुस्तक यशस्वीरित्या अपडेट केले!',ret_success:'पुस्तक यशस्वीरित्या परत केले!',ph_price:'०',footer_cr:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव. | डिझाईन: विनयराज कोरे',footer_copy:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव.',footer_by:'डिझाईन:',borrowed_by:'वाचकाचे नाव',contact:'संपर्क',notice_admin_title:'सूचना पट्टी',notice_admin_sub:'हेडरखाली सर्वांना दिसणारी सरकती सूचना सेट करा. काढण्यासाठी रिकामे ठेवून जतन करा.',notice_ph:'उदा. १५ ऑगस्ट रोजी वाचनालय बंद राहील.',notice_save:'सूचना अद्ययावत करा',notice_clear:'सूचना काढा',notice_saved:'सूचना अद्ययावत झाली!',notice_removed:'सूचना काढली',notice_tag:'सूचना'}
 };
 function t(k){return T[LANG][k]||T.en[k]||k}
 
@@ -1088,27 +1084,51 @@ function applyTr(){
 }
 function toggleLang(){LANG=LANG==='en'?'mr':'en';applyTr();if(BOOKS.length){renderGrid(BOOKS.slice(0,6),'home-grid');renderGrid(BOOKS,'bks-grid');}}
 
-/* LIVE API — calls the Google Apps Script Web App */
+/* MOCK API */
+let MOCK_NOTICE='';
 async function api(params,method='GET'){
-  try{
-    let url=GAS_URL;
-    let opts={method};
-    if(method==='GET'){
-      const qs=new URLSearchParams(params).toString();
-      url+=(url.includes('?')?'&':'?')+qs;
-    }else{
-      // text/plain avoids a CORS preflight against Apps Script; the script
-      // should read the JSON from e.postData.contents in doPost(e).
-      opts.headers={'Content-Type':'text/plain;charset=utf-8'};
-      opts.body=JSON.stringify(params);
-    }
-    const res=await fetch(url,opts);
-    if(!res.ok) return {error:'Server error ('+res.status+'). Please try again.'};
-    return await res.json();
-  }catch(err){
-    console.error('API error:',err);
-    return {error:'Could not reach the server. Check your connection and try again.'};
-  }
+  return new Promise(res=>{
+    setTimeout(()=>{
+      const a=params.action;
+      if(a==='loginEmail'){
+        if(params.email==='admin@test.com') res({success:true,user:{id:'u1',name:'Admin Demo',email:'admin@test.com',role:'admin',mobile:'9876543210'}});
+        else res({success:true,user:{id:'u2',name:'Reader Demo',email:params.email,role:'reader',mobile:'9876543211'}});
+      }else if(a==='sendOTP')res({success:true,message:'OTP sent (Demo: use any 6 digits)'});
+      else if(a==='verifyOTP')res({success:true});
+      else if(a==='registerEmail')res({success:true,user:{id:'u3',name:params.name,email:params.email,role:'reader',mobile:params.mobile}});
+      else if(a==='googleAuth')res({success:true,user:{id:'u4',name:params.name,email:params.email,role:'reader'}});
+      else if(a==='getBooks')res({success:true,notice:MOCK_NOTICE,books:[
+        {id:'b1',bookName:'Chava (छावा)',authorName:'Shivaji Sawant',publication:'Mehta Publishing House',price:450,isAvailable:true},
+        {id:'b2',bookName:'Yayati (ययाति)',authorName:'V.S. Khandekar',publication:'Mehta Publishing House',price:300,isAvailable:false,readerName:'Ram Patil',mobile:'9876543210'},
+        {id:'b3',bookName:'Mrutyunjay (मृत्युंजय)',authorName:'Shivaji Sawant',publication:'Continental Prakashan',price:500,isAvailable:true},
+        {id:'b4',bookName:"Shyamchi Aai (श्यामची आई)",authorName:'Sane Guruji',publication:'Venus Prakashan',price:150,isAvailable:true},
+        {id:'b5',bookName:"Batatyachi Chal (बटाट्याची चाळ)",authorName:'P.L. Deshpande',price:200,isAvailable:true},
+        {id:'b6',bookName:'Kosala (कोसला)',authorName:'Bhalchandra Nemade',publication:'Popular Prakashan',price:280,isAvailable:false,readerName:'Sita More',mobile:'9876543211'},
+      ]});
+      else if(a==='getDashboard')res({success:true,notice:MOCK_NOTICE,stats:{totalBooks:6,availableBooks:4,activeBorrows:2,pendingRequests:1,totalUsers:5},overdue:[]});
+      else if(a==='updateNotice'){MOCK_NOTICE=params.noticeText||'';res({success:true,message:MOCK_NOTICE?'Notice updated!':'Notice removed'});}
+      else if(a==='getMyBooks')res({success:true,myBooks:[{bookName:'Chava (छावा)',borrowDate:'2026-08-01',dueDate:'2026-08-11',status:'borrowed'}]});
+      else if(a==='getAllBorrowed')res({success:true,borrowed:[
+        {id:'bw1',bookID:'b2',bookName:'Yayati (ययाति)',readerName:'Ram Patil',mobile:'9876543210',borrowDate:'2026-08-05',dueDate:'2026-08-15',status:'borrowed'},
+        {id:'bw2',bookID:'b6',bookName:'Kosala (कोसला)',readerName:'Sita More',mobile:'9876543211',borrowDate:'2026-08-10',dueDate:'2026-08-20',status:'borrowed'}
+      ]});
+      else if(a==='getRequests')res({success:true,requests:[{id:'rq1',bookName:'Mrityunjay',authorName:'Shivaji Sawant',requestedBy:'User X',requestDate:'2026-08-12',status:'pending'}]});
+      else if(a==='getAllUsers')res({success:true,users:[
+        {id:'u1',name:'Admin Demo',email:'admin@test.com',role:'admin',mobile:'9876543210',age:'30'},
+        {id:'u2',name:'Reader Demo',email:'demo@test.com',role:'reader',mobile:'9876543211',age:'25'}
+      ]});
+      else res({success:true,message:'Action completed!'});
+    },600);
+  });
+}
+
+function handleGoogleSignIn(){
+  if(!window.google){toast('Google Sign-In not loaded','error');return;}
+  google.accounts.id.initialize({client_id:G_CLIENT,callback:async r=>{
+    load(true);const pl=jwt(r.credential);
+    const res=await api({action:'googleAuth',name:pl.name,email:pl.email,googleID:pl.sub},'POST');
+    load(false);if(res.error){toast(res.error,'error');return;}login(res.user);
+  }});google.accounts.id.prompt();
 }
 
 async function doLogin(){
@@ -1119,22 +1139,45 @@ async function doLogin(){
   login(r.user);toast('Welcome back, '+r.user.name+'!','success');
 }
 
-async function doRegister(){
+async function sendOTP(){
   const nm=v('r-name'),mb=v('r-mob'),ag=v('r-age'),em=v('r-email'),pw=v('r-pw'),cp=v('r-cpw');
   if(!nm||!mb||!ag||!em||!pw||!cp){toast('All fields are required','error');return;}
   if(!/^\d{10}$/.test(mb)){toast('Enter valid 10-digit mobile','error');return;}
   if(!validEmail(em)){toast('Enter a valid email address','error');return;}
   if(pw.length<6){toast('Password must be at least 6 characters','error');return;}
   if(pw!==cp){toast('Passwords do not match','error');return;}
-  load(true);
-  const r=await api({action:'registerEmail',name:nm,email:em,mobile:mb,age:ag,password:pw},'POST');
-  load(false);
+  load(true);const r=await api({action:'sendOTP',email:em},'POST');load(false);
   if(r.error){toast(r.error,'error');return;}
-  login(r.user);toast('Account created! Welcome!','success');
+  document.getElementById('r-email').readOnly=true;document.getElementById('r-email').classList.add('locked');
+  document.getElementById('email-lock').classList.add('show');
+  document.getElementById('otp-email-show').textContent=em;
+  toast(r.message,'success');
+  show('reg-s1',false);show('reg-s2',true);
+  setTimeout(()=>document.querySelector('.otp-box').focus(),200);
+}
+async function resendOTP(){const em=v('r-email');load(true);const r=await api({action:'sendOTP',email:em},'POST');load(false);if(r.error){toast(r.error,'error');return;}toast(r.message,'success');}
+async function verifyOTP(){
+  const em=v('r-email'),otp=[...document.querySelectorAll('.otp-box')].map(i=>i.value).join('');
+  if(otp.length!==6){toast('Enter complete 6-digit OTP','error');return;}
+  load(true);const vr=await api({action:'verifyOTP',email:em,otp},'POST');
+  if(!vr.success){load(false);toast(vr.error||'Invalid OTP','error');return;}
+  const r=await api({action:'registerEmail',name:v('r-name'),email:em,mobile:v('r-mob'),age:v('r-age'),password:v('r-pw')},'POST');
+  load(false);if(r.error){toast(r.error,'error');return;}login(r.user);toast('Account created! Welcome!','success');
+}
+function backToS1(){
+  show('reg-s1',true);show('reg-s2',false);
+  document.getElementById('r-email').readOnly=false;document.getElementById('r-email').classList.remove('locked');
+  document.getElementById('email-lock').classList.remove('show');
+  document.querySelectorAll('.otp-box').forEach(i=>i.value='');
+}
+function otpNav(el,idx){
+  el.value=el.value.replace(/\D/g,'');
+  if(el.value&&idx<5){const nx=document.querySelectorAll('.otp-box')[idx+1];if(nx)nx.focus();}
 }
 function switchTab(tab){
   const isL=tab==='login';
   show('login-form',isL);show('reg-form',!isL);
+  if(!isL){show('reg-s1',true);show('reg-s2',false);}
   document.getElementById('tab-l').classList.toggle('active',isL);
   document.getElementById('tab-r').classList.toggle('active',!isL);
 }
@@ -1171,7 +1214,6 @@ function showPage(id){
   window.scrollTo(0,0);
   if(id==='home-page')loadHome();if(id==='books-page')loadBks();
   if(id==='mybooks-page')loadMyBks();if(id==='admin-page')loadAdmin();
-  if(id==='request-page')loadReqPage();
 }
 function navTo(pg){closeMob();showPage(pg);}
 function openMob(){document.getElementById('mob-nav').classList.add('open');}
@@ -1234,78 +1276,12 @@ async function loadMyBks(){
   }).join('');
 }
 
-/* ── REQUEST PAGE: SEARCH + BIDIRECTIONAL AUTOCOMPLETE ── */
-async function loadReqPage(){
-  if(!BOOKS.length){load(true);const r=await api({action:'getBooks'});load(false);if(!r.error)BOOKS=r.books||[];}
-}
-function rqEsc(s){return esc(s);}
-function rqRenderSuggest(elId,matches,mode){
-  const box=document.getElementById(elId);
-  if(!matches.length){box.innerHTML=`<div class="rq-suggest-empty">${I.info?I.info:''} No matching book in our catalogue — this will be submitted as a <strong>new book request</strong>.</div>`;box.classList.remove('hidden');return;}
-  box.innerHTML=matches.slice(0,7).map(b=>{
-    const st=b.isAvailable?`<span class="badge badge-green">${I.check} Available</span>`:`<span class="badge badge-red">${I.x_c} Borrowed</span>`;
-    return `<div class="rq-suggest-item" tabindex="0" onclick='rqSelectBook(${JSON.stringify(b.id)})'>
-      <div class="rq-suggest-main">
-        <div class="rq-suggest-title">${rqEsc(b.bookName)}</div>
-        <div class="rq-suggest-sub">${rqEsc(b.authorName)}</div>
-      </div>${st}
-    </div>`;
-  }).join('');
-  box.classList.remove('hidden');
-}
-function rqOnNameInput(val){
-  RQ_SELECTED=null;document.getElementById('rq-book-id').value='';document.getElementById('rq-type').value='new';
-  document.getElementById('rq-status-box').classList.add('hidden');
-  const q=val.trim().toLowerCase();
-  if(!q){document.getElementById('rq-name-suggest').classList.add('hidden');return;}
-  const m=BOOKS.filter(b=>b.bookName.toLowerCase().includes(q));
-  rqRenderSuggest('rq-name-suggest',m,'name');
-}
-function rqOnAuthorInput(val){
-  RQ_SELECTED=null;document.getElementById('rq-book-id').value='';document.getElementById('rq-type').value='new';
-  document.getElementById('rq-status-box').classList.add('hidden');
-  const q=val.trim().toLowerCase();
-  if(!q){document.getElementById('rq-author-suggest').classList.add('hidden');return;}
-  const m=BOOKS.filter(b=>b.authorName.toLowerCase().includes(q));
-  rqRenderSuggest('rq-author-suggest',m,'author');
-}
-function rqSelectBook(id){
-  const b=BOOKS.find(x=>String(x.id)===String(id));if(!b)return;
-  document.getElementById('rq-name').value=b.bookName;
-  document.getElementById('rq-author').value=b.authorName;
-  document.getElementById('rq-book-id').value=b.id;
-  document.getElementById('rq-name-suggest').classList.add('hidden');
-  document.getElementById('rq-author-suggest').classList.add('hidden');
-  RQ_SELECTED=b;
-  const box=document.getElementById('rq-status-box');
-  if(!b.isAvailable){
-    document.getElementById('rq-type').value='borrowed';
-    box.className='rq-status-box st-borrowed';
-    box.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    <div><strong>This book is currently borrowed by another reader.</strong><br>We'll place a hold request and notify you as soon as it's returned.</div>`;
-  }else{
-    document.getElementById('rq-type').value='existing';
-    box.className='rq-status-box st-available';
-    box.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-    <div><strong>Good news — this book is already available!</strong><br>You can borrow it directly from the <a href="#" onclick="showPage('books-page');return false;">Browse Books</a> page, or still submit this request if you'd like it reserved.</div>`;
-  }
-}
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.rq-ac-wrap')){
-    document.getElementById('rq-name-suggest')?.classList.add('hidden');
-    document.getElementById('rq-author-suggest')?.classList.add('hidden');
-  }
-});
 async function submitReq(){
   if(!CU){toast('Please login first','error');return;}
   const bn=v('rq-name'),au=v('rq-author');if(!bn){toast('Book name required','error');return;}
-  const bookID=v('rq-book-id'),reqType=v('rq-type')||'new';
-  load(true);const r=await api({action:'requestBook',bookName:bn,authorName:au,bookID:bookID,requestType:reqType,requestedBy:CU.name,mobile:CU.mobile||'',userID:CU.id},'POST');load(false);
+  load(true);const r=await api({action:'requestBook',bookName:bn,authorName:au,requestedBy:CU.name,mobile:CU.mobile||'',userID:CU.id},'POST');load(false);
   if(r.error){toast(r.error,'error');return;}
-  toast(r.message,'success');
-  document.getElementById('rq-name').value='';document.getElementById('rq-author').value='';
-  document.getElementById('rq-book-id').value='';document.getElementById('rq-type').value='new';
-  document.getElementById('rq-status-box').classList.add('hidden');RQ_SELECTED=null;
+  toast(r.message,'success');document.getElementById('rq-name').value='';document.getElementById('rq-author').value='';
 }
 
 function openBorrow(id,name,pub){
@@ -1334,7 +1310,6 @@ function aTab(tab){
   const tabs=['dash','bks','borrows','reqs','users'];
   document.querySelectorAll('.atab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
   if(tab==='dash')loadDash();if(tab==='bks')loadABks();if(tab==='borrows')loadABorrows();
-  if(tab==='reqs')loadAReqs();if(tab==='users')loadAUsers();
 }
 async function loadDash(){
   load(true);const r=await api({action:'getDashboard',userID:CU.id});load(false);
@@ -1368,27 +1343,11 @@ async function loadABorrows(){
     `:'&mdash;'}</div></td></tr>`;
   }).join('');
 }
-let ALL_REQS=[],RQ_FILTER='all';
 async function loadAReqs(){
   load(true);const r=await api({action:'getRequests'});load(false);if(r.error){toast(r.error,'error');return;}
-  ALL_REQS=r.requests||[];
-  renderAReqs();
-}
-function rqFilter(type,btn){
-  RQ_FILTER=type;
-  document.querySelectorAll('.rqftab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  renderAReqs();
-}
-function renderAReqs(){
-  const list=RQ_FILTER==='all'?ALL_REQS:ALL_REQS.filter(rq=>(rq.requestType||'new')===RQ_FILTER || (RQ_FILTER==='new' && !rq.requestType));
-  const body=document.getElementById('rq-body'),empty=document.getElementById('rq-empty');
-  if(!list.length){body.innerHTML='';empty.classList.remove('hidden');return;}
-  empty.classList.add('hidden');
-  body.innerHTML=list.map(rq=>{
+  document.getElementById('rq-body').innerHTML=(r.requests||[]).map(rq=>{
     const bg=rq.status==='pending'?`<span class="badge badge-yellow">${I.calendar} ${t('pending_st')}</span>`:rq.status==='fulfilled'?`<span class="badge badge-green">${I.check} ${t('fulfilled_st')}</span>`:`<span class="badge badge-red">${I.x_c} ${t('rejected_st')}</span>`;
-    const typ=rq.requestType==='borrowed'?`<span class="badge badge-purple">📖 Borrowed Book</span>`:rq.requestType==='existing'?`<span class="badge badge-blue">📚 In Catalogue</span>`:`<span class="badge badge-green">🆕 New Book</span>`;
-    return`<tr><td><strong>${esc(rq.bookName)}</strong></td><td>${esc(rq.authorName||'&mdash;')}</td><td>${esc(rq.requestedBy)}</td><td>${rq.mobile?`<a href="tel:${esc(rq.mobile)}">${esc(rq.mobile)}</a>`:'&mdash;'}</td><td>${typ}</td><td>${dt(rq.requestDate)}</td><td>${bg}</td>
+    return`<tr><td><strong>${esc(rq.bookName)}</strong></td><td>${esc(rq.authorName||'&mdash;')}</td><td>${esc(rq.requestedBy)}</td><td>${dt(rq.requestDate)}</td><td>${bg}</td>
     <td>${rq.status==='pending'?`<div class="flex gap-6">
       <button class="btn btn-green btn-xs" onclick="fulfillRq('${rq.id}')">${I.check} ${t('fulfill')}</button>
       <button class="btn btn-danger btn-xs" onclick="rejectRq('${rq.id}')">${I.x_c} ${t('reject')}</button>
@@ -1428,6 +1387,7 @@ function show(id,vis){document.getElementById(id).classList.toggle('hidden',!vis
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function validEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);}
 function dt(d){if(!d)return'&mdash;';try{return new Date(d).toLocaleDateString(LANG==='mr'?'mr-IN':'en-IN',{day:'2-digit',month:'short',year:'numeric'});}catch(e){return d;}}
+function jwt(token){return JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));}
 function load(s){const el=document.getElementById('loader');el.classList.toggle('show',s);if(s){const nav=document.getElementById('nav-logo-img');const ll=document.getElementById('loader-logo');if(nav&&ll&&nav.src){ll.src=nav.src;ll.style.display='block';}}}
 function toast(msg,type='info'){
   const c=document.getElementById('toast-wrap');
@@ -1443,8 +1403,13 @@ function toast(msg,type='info'){
   setTimeout(()=>{d.classList.add('toast-exit');setTimeout(()=>d.remove(),400);},4800);
 }
 document.addEventListener('keydown',e=>{
+  if(e.target.classList.contains('otp-box')){
+    const boxes=[...document.querySelectorAll('.otp-box')],idx=boxes.indexOf(e.target);
+    if(e.key==='Backspace'&&!e.target.value&&idx>0){boxes[idx-1].focus();boxes[idx-1].value='';}
+    if(e.key==='ArrowLeft'&&idx>0)boxes[idx-1].focus();
+    if(e.key==='ArrowRight'&&idx<5)boxes[idx+1].focus();
+  }
   if(e.key==='Enter'&&e.target.id==='l-pw')doLogin();
-  if(e.key==='Enter'&&e.target.id==='r-cpw')doRegister();
 });
 document.getElementById('borrow-mod').addEventListener('click',e=>{if(e.target===e.currentTarget)closeBorrow();});
 document.getElementById('bk-mod').addEventListener('click',e=>{if(e.target===e.currentTarget)closeBkMod();});
