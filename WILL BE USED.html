@@ -357,7 +357,7 @@ tr:hover td{background:var(--gold-pale)}
 .wa-btn{background:#25d366;color:#fff;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:5px;font-size:.74rem;font-weight:600;text-decoration:none;transition:all var(--transition);}
 .wa-btn:hover{background:#22c55e;transform:scale(1.03)}
 
-.toast-wrap{position:fixed;top:calc(var(--nav-h)+10px);right:14px;z-index:900;display:flex;flex-direction:column;gap:8px;max-width:min(360px,calc(100vw - 28px))}
+.toast-wrap{position:fixed;top:calc(var(--nav-h)+10px);right:14px;z-index:1600;display:flex;flex-direction:column;gap:8px;max-width:min(360px,calc(100vw - 28px))}
 .toast{background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:.83rem;color:var(--text);box-shadow:var(--sh-md);display:flex;align-items:center;gap:10px;animation:toastIn .28s ease;word-break:break-word;}
 @keyframes toastIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
 .toast.success{border-color:#86efac;background:#f0fdf4;color:#166534}
@@ -409,7 +409,7 @@ img{max-width:100%;height:auto}
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PROFESSIONAL ALERTS / TOASTS
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.toast-wrap{position:fixed;top:calc(var(--nav-h)+14px);right:18px;z-index:1500;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 36px));pointer-events:none;}
+.toast-wrap{position:fixed;top:calc(var(--nav-h)+14px);right:18px;z-index:1600;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 36px));pointer-events:none;}
 .toast{
   background:var(--surface);
   border-radius:12px;
@@ -608,16 +608,27 @@ img{max-width:100%;height:auto}
 .site-footer{display:block}
 
 /* ── NOTICE BAR ── */
-.notice-bar { background: var(--gold-pale); border-bottom: 1.5px solid var(--gold-border); width: 100%; overflow: hidden; padding: 0; position: fixed; top: var(--nav-h); z-index: 499; display: flex; align-items: stretch; }
+.notice-bar { background: var(--gold-pale); border-bottom: 1.5px solid var(--gold-border); width: 100%; overflow: hidden; padding: 0; position: fixed; top: var(--nav-h); z-index: 490; display: flex; align-items: stretch; min-height:36px; }
 .notice-bar.hidden { display: none !important; }
 .notice-tag { flex-shrink:0; display:flex; align-items:center; gap:6px; background:var(--brown-dark); color:#fff; padding:8px 16px; font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
 .notice-tag svg{flex-shrink:0;color:var(--gold-l);}
 .notice-scroll { flex:1; overflow:hidden; white-space:nowrap; position:relative; display:flex; align-items:center; padding:0 16px 0 14px; }
 .notice-marquee { display:inline-block; padding-left:100%; animation:marquee 22s linear infinite; font-weight:600; color:var(--brown-dark); font-size:.88rem; letter-spacing:.03em; }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-body.has-notice .page.active { padding-top: calc(var(--nav-h) + 38px); }
-body.has-notice #auth-page.active { padding-top: calc(var(--nav-h) + 78px) !important; }
-body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
+--notice-h: 36px;
+body.has-notice .page.active { padding-top: calc(var(--nav-h) + var(--notice-h, 36px)); }
+body.has-notice #auth-page.active { padding-top: calc(var(--nav-h) + var(--notice-h, 36px) + 24px) !important; }
+body.has-notice .hero { padding-top: calc(var(--nav-h) + var(--notice-h, 36px) + 48px) !important; }
+@media(max-width:560px){
+  .notice-bar { min-height:32px; }
+  body.has-notice .page.active { padding-top: calc(var(--nav-h) + 32px) !important; }
+  body.has-notice #auth-page.active { padding-top: calc(var(--nav-h) + 32px + 16px) !important; }
+  body.has-notice .hero { padding-top: calc(var(--nav-h) + 32px + 48px) !important; }
+}
+/* Borrow-request badge on admin tab */
+.atab-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;background:#dc2626;color:#fff;border-radius:20px;font-size:.65rem;font-weight:800;margin-left:4px;animation:badgePop .3s cubic-bezier(.22,1,.36,1);}
+@keyframes badgePop{from{transform:scale(0)}to{transform:scale(1)}}
+.atab-badge.hidden{display:none!important}
 </style>
 <style>
 /* ── GLOBAL FIXES ── */
@@ -949,11 +960,16 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
   <div class="container">
     <div class="pg-head"><h2><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="admin_pg">Admin Panel</span></h2></div>
     <div class="admin-tabs">
-      <button class="atab active" onclick="aTab('dash')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> <span data-i18n="a_dash">Dashboard</span></button>
-      <button class="atab" onclick="aTab('bks')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span data-i18n="a_bks">Manage Books</span></button>
-      <button class="atab" onclick="aTab('borrows')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span data-i18n="a_borrows">Borrowed</span></button>
-      <button class="atab" onclick="aTab('reqs')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-i18n="a_reqs">Requests</span></button>
-      <button class="atab" onclick="aTab('users')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span data-i18n="a_users">Users</span></button>
+      <button class="atab active" id="atab-dash" onclick="aTab('dash')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> <span data-i18n="a_dash">Dashboard</span></button>
+      <button class="atab" id="atab-bks" onclick="aTab('bks')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> <span data-i18n="a_bks">Manage Books</span></button>
+      <button class="atab" id="atab-borrow-reqs" onclick="aTab('borrow-reqs')" style="position:relative">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        <span data-i18n="a_borrow_reqs">Borrow Requests</span>
+        <span class="atab-badge hidden" id="borrow-reqs-badge">0</span>
+      </button>
+      <button class="atab" id="atab-borrows" onclick="aTab('borrows')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span data-i18n="a_borrows">Borrowed</span></button>
+      <button class="atab" id="atab-reqs" onclick="aTab('reqs')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span data-i18n="a_reqs">Requests</span></button>
+      <button class="atab" id="atab-users" onclick="aTab('users')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span data-i18n="a_users">Users</span></button>
     </div>
 
     <div id="a-dash" class="admin-sec active">
@@ -972,6 +988,11 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
         <div class="stat-card"><div class="stat-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div><div class="stat-val" id="st-tot">&mdash;</div><div class="stat-lbl" data-i18n="total_bks">Total Books</div></div>
         <div class="stat-card"><div class="stat-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><polyline points="20 6 9 17 4 12"/></svg></div><div class="stat-val" id="st-av">&mdash;</div><div class="stat-lbl" data-i18n="avail_bks">Available</div></div>
         <div class="stat-card"><div class="stat-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="stat-val" id="st-br">&mdash;</div><div class="stat-lbl" data-i18n="active_brs">Active Borrows</div></div>
+        <div class="stat-card" style="border-color:rgba(220,38,38,.25)" onclick="aTab('borrow-reqs')" title="Click to view pending borrow requests">
+          <div class="stat-ico" style="color:#dc2626"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+          <div class="stat-val" id="st-bwr" style="color:#dc2626">&mdash;</div>
+          <div class="stat-lbl" data-i18n="pend_borrows">Pending Borrows</div>
+        </div>
         <div class="stat-card"><div class="stat-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div class="stat-val" id="st-rq">&mdash;</div><div class="stat-lbl" data-i18n="pend_reqs">Pending Requests</div></div>
         <div class="stat-card"><div class="stat-ico"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="stat-val" id="st-us">&mdash;</div><div class="stat-lbl" data-i18n="readers">Readers</div></div>
       </div>
@@ -984,6 +1005,36 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
     <div id="a-bks" class="admin-sec">
       <div class="flex jb aic mb-20"><h3 data-i18n="a_bks">Manage Books</h3><button class="btn btn-primary" onclick="openAddBk()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> <span data-i18n="add_bk">Add Book</span></button></div>
       <div class="tbl-wrap"><table><thead><tr><th>Book ID</th><th data-i18n="bk_name">Name</th><th data-i18n="auth_name">Author</th><th data-i18n="price_l">Price</th><th data-i18n="col_st">Status</th><th>Actions</th></tr></thead><tbody id="abk-body"></tbody></table></div>
+    </div>
+
+    <!-- BORROW REQUESTS SECTION -->
+    <div id="a-borrow-reqs" class="admin-sec">
+      <div class="flex jb aic mb-20" style="flex-wrap:wrap;gap:10px">
+        <div>
+          <h3 style="display:flex;align-items:center;gap:8px;color:var(--brown-dark)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            <span data-i18n="a_borrow_reqs">Borrow Requests</span>
+          </h3>
+          <p class="text-muted" style="margin-top:4px;font-size:.82rem" data-i18n="borrow_reqs_sub">Approve requests after physically handing the book to the reader.</p>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="loadABorrowReqs()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+          Refresh
+        </button>
+      </div>
+      <div class="tbl-wrap"><table><thead><tr>
+        <th data-i18n="col_bk">Book</th>
+        <th data-i18n="col_reader">Reader</th>
+        <th>Mobile</th>
+        <th>Requested On</th>
+        <th data-i18n="col_st">Status</th>
+        <th>Actions</th>
+      </tr></thead><tbody id="bwr-body"></tbody></table></div>
+      <div class="empty hidden" id="bwr-empty">
+        <div class="empty-ico"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3>No pending borrow requests</h3>
+        <p>All requests have been processed.</p>
+      </div>
     </div>
 
     <div id="a-borrows" class="admin-sec">
@@ -1007,15 +1058,23 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
 <!-- BORROW MODAL -->
 <div class="overlay hide" id="borrow-mod">
   <div class="modal">
-    <div class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> <span data-i18n="borrow_bk">Borrow Book</span></div>
+    <div class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> <span data-i18n="borrow_bk">Request to Borrow</span></div>
     <p id="borrow-bk-title" style="color:var(--gold);font-weight:700;font-family:var(--serif);font-size:1.1rem;margin-bottom:4px;"></p>
     <p class="text-muted" id="borrow-bk-pub" style="font-size:0.85rem;margin-bottom:14px;"></p>
+    <!-- Approval notice -->
+    <div style="display:flex;align-items:flex-start;gap:10px;background:linear-gradient(135deg,#fef9c3,#fefce8);border:1.5px solid #fde68a;border-radius:10px;padding:12px 14px;margin-bottom:16px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div style="font-size:.82rem;color:#92400e;line-height:1.6"><strong data-i18n="borrow_approval_title">Admin Approval Required</strong><br><span data-i18n="borrow_approval_note">Your request will be reviewed by the admin. The book will be marked as borrowed once the admin physically hands it to you.</span></div>
+    </div>
     <div class="form-group"><label><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="name_l">Your Name</span></label><input class="input" id="bw-name" type="text" placeholder="Full name"></div>
     <div class="form-group"><label><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span data-i18n="mob_l">Mobile Number</span></label><input class="input" id="bw-mob" type="tel" placeholder="10-digit mobile" maxlength="10"></div>
-    <div class="info-box gold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div><span data-i18n="due_note">Due date (10 days):</span> <strong id="bw-due" style="color:var(--brown-dark)"></strong></div></div>
+    <div class="info-box gold"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><div><span data-i18n="due_note">Estimated due date (10 days from approval):</span> <strong id="bw-due" style="color:var(--brown-dark)"></strong></div></div>
     <div class="modal-foot">
       <button class="btn btn-outline" onclick="closeBorrow()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> <span data-i18n="cancel">Cancel</span></button>
-      <button class="btn btn-primary" onclick="confirmBorrow()"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><polyline points="20 6 9 17 4 12"/></svg> <span data-i18n="confirm_borrow">Confirm Borrow</span></button>
+      <button class="btn btn-primary" onclick="confirmBorrow()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <span data-i18n="send_borrow_req">Send Borrow Request</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1041,10 +1100,13 @@ body.has-notice .hero { padding-top: calc(var(--nav-h) + 86px) !important; }
 const GAS_URL='YOUR_GAS_WEB_APP_URL_HERE';
 const G_CLIENT='YOUR_GOOGLE_CLIENT_ID_HERE';
 let CU=null,BOOKS=[],LANG='en',PENDING_BK=null;
+let MOCK_BORROW_REQS=[
+  {id:'br1',bookID:'b1',bookName:'Chava (छावा)',readerName:'Suresh Jadhav',mobile:'9988776655',requestDate:new Date().toISOString(),status:'pending'},
+];
 
 const T={
-en:{nav_sub:'Community Library &middot; Aknoor',nav_home:'Home',nav_books:'Books',nav_mybooks:'My Books',nav_req:'Request',nav_admin:'Admin',logout:'Logout',loading:'Loading...',google_btn:'Continue with Google',or:'OR',login:'Login',register:'Register',email_l:'Email Address',pw_l:'Password',cpw_l:'Confirm Password',name_l:'Full Name',mob_l:'Mobile Number',age_l:'Age',send_otp:'Send OTP to Email',otp_sent:'OTP sent to:',otp_l:'Enter 6-Digit OTP',verify_btn:'Verify & Create Account',back:'Back',no_otp:"Didn't receive OTP?",resend:'Resend OTP',login_btn:'Login to Library',terms:'By continuing you agree to library terms & conditions.',demo_hint:'Demo Login (Mock Mode)',demo_pw:'Any password works in demo',hero_badge:'Community Library',hero_sub:'Welcome to our library. Discover books, borrow with ease, and enrich your mind.',browse_btn:'Browse Books',req_btn:'Request a Book',total_bks:'Total Books',avail_bks:'Available',readers:'Readers',featured:'Featured Books',view_all:'View All',all_bks:'All Books',all_bks_sub:'Browse our complete collection.',no_bks:'No books found',no_bks_sub:'Try a different search term.',my_bks:'My Borrowed Books',no_myb:'No Borrowed Books',no_myb_sub:"You haven't borrowed any books yet.",req_pg:'Request a Book',req_pg_sub:"Can't find a book? Let us know!",bk_name:'Book Name',auth_name:'Author Name',submit_req:'Submit Request',admin_pg:'Admin Panel',a_dash:'Dashboard',a_bks:'Manage Books',a_borrows:'Borrowed',a_reqs:'Requests',a_users:'Users',active_brs:'Active Borrows',pend_reqs:'Pending Requests',overdue:'Overdue Books',add_bk:'Add Book',save_bk:'Save Book',price_l:'Price (₹)',cancel:'Cancel',borrow_bk:'Borrow Book',due_note:'Due date (10 days):',confirm_borrow:'Confirm Borrow',avail:'Available',borrowed_st:'Borrowed',returned_st:'Returned',pending_st:'Pending',fulfilled_st:'Fulfilled',rejected_st:'Rejected',make_admin:'Make Admin',make_reader:'Make Reader',mark_ret:'Mark Returned',fulfill:'Fulfill',reject:'Reject',edit:'Edit',delete:'Delete',col_bk:'Book',col_reader:'Reader',col_borrowed:'Borrowed On',col_due:'Due Date',col_st:'Status',ph_email:'your@email.com',ph_pw:'Enter your password',ph_name:'Your full name',ph_mob:'10-digit number',ph_age:'Your age',ph_pw_min:'Min 6 characters',ph_cpw:'Re-enter password',ph_search:'Search by title or author...',ph_bk_name:'Enter book title',ph_auth_name:'Enter author name',col_pub:'Publication',ph_pub:'Enter publication',ph_fname:'Full name',ph_mob_10:'10-digit mobile',borrow_success:'Book borrowed successfully!',add_success:'Book added successfully!',update_success:'Book updated successfully!',ret_success:'Book returned successfully!',ph_price:'0',footer_cr:'&copy; 2025 Akshardhara Vachnalay. All rights reserved. | Designed by Vinayraj Kore',footer_copy:'&copy; 2025 Akshardhara Vachnalay. All rights reserved.',footer_by:'Designed by',borrowed_by:'Borrowed by',contact:'Contact',notice_admin_title:'Notice Bar',notice_admin_sub:'Set a scrolling announcement shown to everyone below the header. Leave blank and save to remove it.',notice_ph:'e.g. Library closed on 15th Aug for Independence Day.',notice_save:'Update Notice',notice_clear:'Remove Notice',notice_saved:'Notice updated!',notice_removed:'Notice removed',notice_tag:'Notice'},
-mr:{nav_sub:'समुदाय वाचनालय – आकनूर',nav_home:'मुख्य पृष्ठ',nav_books:'पुस्तके',nav_mybooks:'माझी पुस्तके',nav_req:'विनंती',nav_admin:'प्रशासक',logout:'लॉगआउट',loading:'लोड होत आहे...',google_btn:'Google ने सुरू ठेवा',or:'किंवा',login:'लॉगिन',register:'नोंदणी',email_l:'ईमेल पत्ता',pw_l:'पासवर्ड',cpw_l:'पुन्हा पासवर्ड',name_l:'पूर्ण नाव',mob_l:'मोबाईल नंबर',age_l:'वय',send_otp:'ईमेलवर OTP पाठवा',otp_sent:'OTP पाठवले:',otp_l:'६ अंकी OTP टाका',verify_btn:'सत्यापित करा',back:'मागे',no_otp:'OTP मिळाले नाही?',resend:'OTP पुन्हा पाठवा',login_btn:'वाचनालयात लॉगिन करा',terms:'पुढे जाऊन आपण अटी मान्य करता.',demo_hint:'डेमो लॉगिन',demo_pw:'कोणताही पासवर्ड',hero_badge:'समुदाय वाचनालय',hero_sub:'तुमच्या वाचनालयात स्वागत. पुस्तके शोधा आणि ज्ञान मिळवा.',browse_btn:'पुस्तके पाहा',req_btn:'पुस्तक मागणी',total_bks:'एकूण पुस्तके',avail_bks:'उपलब्ध',readers:'वाचक',featured:'वैशिष्ट्यीकृत पुस्तके',view_all:'सर्व पाहा',all_bks:'सर्व पुस्तके',all_bks_sub:'संपूर्ण संग्रह पाहा.',no_bks:'पुस्तक सापडले नाही',no_bks_sub:'वेगळे शोध शब्द वापरा.',my_bks:'माझी वाचायला पुस्तके',no_myb:'वाचायला पुस्तके नाहीत',no_myb_sub:'अजून पुस्तक वाचायला घेतले नाही.',req_pg:'पुस्तक मागणी',req_pg_sub:'पुस्तक सापडत नाही? मागणी सादर करा!',bk_name:'पुस्तकाचे नाव',auth_name:'लेखकाचे नाव',submit_req:'मागणी सादर करा',admin_pg:'प्रशासक पॅनेल',a_dash:'डॅशबोर्ड',a_bks:'पुस्तके व्यवस्थापित करा',a_borrows:'वाचायला',a_reqs:'मागण्या',a_users:'वापरकर्ते',active_brs:'सक्रिय वाचायला',pend_reqs:'प्रलंबित मागण्या',overdue:'थकीत पुस्तके',add_bk:'पुस्तक जोडा',save_bk:'जतन करा',price_l:'किंमत (₹)',cancel:'रद्द करा',borrow_bk:'पुस्तक वाचायला घ्या',due_note:'परत तारीख :',confirm_borrow:'वाचायला निश्चित करा',avail:'उपलब्ध',borrowed_st:'वाचकास दिले',returned_st:'परत केले',pending_st:'प्रलंबित',fulfilled_st:'पूर्ण',rejected_st:'नाकारले',make_admin:'प्रशासक करा',make_reader:'वाचक करा',mark_ret:'परत चिन्हांकित करा',fulfill:'पूर्ण करा',reject:'नाकारा',edit:'संपादित करा',delete:'हटवा',col_bk:'पुस्तक',col_reader:'वाचक',col_borrowed:'वाचायला घेतले',col_due:'परत तारीख',col_st:'स्थिती',ph_email:'tumcha@email.com',ph_pw:'पासवर्ड टाका',ph_name:'तुमचे पूर्ण नाव',ph_mob:'१०-अंकी क्रमांक',ph_age:'तुमचे वय',ph_pw_min:'किमान ६ अक्षरे',ph_cpw:'पासवर्ड पुन्हा टाका',ph_search:'शीर्षक किंवा लेखकाने शोधा...',ph_bk_name:'पुस्तकाचे नाव टाका',ph_auth_name:'लेखकाचे नाव टाका',col_pub:'प्रकाशन',ph_pub:'प्रकाशन टाका',ph_fname:'पूर्ण नाव',ph_mob_10:'१०-अंकी मोबाईल',borrow_success:'पुस्तक यशस्वीरित्या वाचायला दिले!',add_success:'पुस्तक यशस्वीरित्या जोडले!',update_success:'पुस्तक यशस्वीरित्या अपडेट केले!',ret_success:'पुस्तक यशस्वीरित्या परत केले!',ph_price:'०',footer_cr:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव. | डिझाईन: विनयराज कोरे',footer_copy:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव.',footer_by:'डिझाईन:',borrowed_by:'वाचकाचे नाव',contact:'संपर्क',notice_admin_title:'सूचना पट्टी',notice_admin_sub:'हेडरखाली सर्वांना दिसणारी सरकती सूचना सेट करा. काढण्यासाठी रिकामे ठेवून जतन करा.',notice_ph:'उदा. १५ ऑगस्ट रोजी वाचनालय बंद राहील.',notice_save:'सूचना अद्ययावत करा',notice_clear:'सूचना काढा',notice_saved:'सूचना अद्ययावत झाली!',notice_removed:'सूचना काढली',notice_tag:'सूचना'}
+en:{nav_sub:'Community Library &middot; Aknoor',nav_home:'Home',nav_books:'Books',nav_mybooks:'My Books',nav_req:'Request',nav_admin:'Admin',logout:'Logout',a_borrow_reqs:'Borrow Requests',borrow_reqs_sub:'Approve requests after physically handing the book to the reader.',pend_borrows:'Pending Borrows',borrow_approval_title:'Admin Approval Required',borrow_approval_note:'Your request will be reviewed by the admin. The book will be marked as borrowed once the admin physically hands it to you.',send_borrow_req:'Send Borrow Request',borrow_req_sent:'Borrow request sent! Awaiting admin approval.',approve_borrow:'Approve & Mark Borrowed',decline_borrow:'Decline',borrow_approved:'Borrow approved! Book marked as borrowed.',borrow_declined:'Request declined.',confirm_approve_borrow:'The book has been physically handed to the reader. Mark as borrowed?',confirm_decline_borrow:'Decline this borrow request?',loading:'Loading...',google_btn:'Continue with Google',or:'OR',login:'Login',register:'Register',email_l:'Email Address',pw_l:'Password',cpw_l:'Confirm Password',name_l:'Full Name',mob_l:'Mobile Number',age_l:'Age',send_otp:'Send OTP to Email',otp_sent:'OTP sent to:',otp_l:'Enter 6-Digit OTP',verify_btn:'Verify & Create Account',back:'Back',no_otp:"Didn't receive OTP?",resend:'Resend OTP',login_btn:'Login to Library',terms:'By continuing you agree to library terms & conditions.',demo_hint:'Demo Login (Mock Mode)',demo_pw:'Any password works in demo',hero_badge:'Community Library',hero_sub:'Welcome to our library. Discover books, borrow with ease, and enrich your mind.',browse_btn:'Browse Books',req_btn:'Request a Book',total_bks:'Total Books',avail_bks:'Available',readers:'Readers',featured:'Featured Books',view_all:'View All',all_bks:'All Books',all_bks_sub:'Browse our complete collection.',no_bks:'No books found',no_bks_sub:'Try a different search term.',my_bks:'My Borrowed Books',no_myb:'No Borrowed Books',no_myb_sub:"You haven't borrowed any books yet.",req_pg:'Request a Book',req_pg_sub:"Can't find a book? Let us know!",bk_name:'Book Name',auth_name:'Author Name',submit_req:'Submit Request',admin_pg:'Admin Panel',a_dash:'Dashboard',a_bks:'Manage Books',a_borrows:'Borrowed',a_reqs:'Requests',a_users:'Users',active_brs:'Active Borrows',pend_reqs:'Pending Requests',overdue:'Overdue Books',add_bk:'Add Book',save_bk:'Save Book',price_l:'Price (₹)',cancel:'Cancel',borrow_bk:'Borrow Book',due_note:'Due date (10 days):',confirm_borrow:'Confirm Borrow',avail:'Available',borrowed_st:'Borrowed',returned_st:'Returned',pending_st:'Pending',fulfilled_st:'Fulfilled',rejected_st:'Rejected',make_admin:'Make Admin',make_reader:'Make Reader',mark_ret:'Mark Returned',fulfill:'Fulfill',reject:'Reject',edit:'Edit',delete:'Delete',col_bk:'Book',col_reader:'Reader',col_borrowed:'Borrowed On',col_due:'Due Date',col_st:'Status',ph_email:'your@email.com',ph_pw:'Enter your password',ph_name:'Your full name',ph_mob:'10-digit number',ph_age:'Your age',ph_pw_min:'Min 6 characters',ph_cpw:'Re-enter password',ph_search:'Search by title or author...',ph_bk_name:'Enter book title',ph_auth_name:'Enter author name',col_pub:'Publication',ph_pub:'Enter publication',ph_fname:'Full name',ph_mob_10:'10-digit mobile',borrow_success:'Book borrowed successfully!',add_success:'Book added successfully!',update_success:'Book updated successfully!',ret_success:'Book returned successfully!',ph_price:'0',footer_cr:'&copy; 2025 Akshardhara Vachnalay. All rights reserved. | Designed by Vinayraj Kore',footer_copy:'&copy; 2025 Akshardhara Vachnalay. All rights reserved.',footer_by:'Designed by',borrowed_by:'Borrowed by',contact:'Contact',notice_admin_title:'Notice Bar',notice_admin_sub:'Set a scrolling announcement shown to everyone below the header. Leave blank and save to remove it.',notice_ph:'e.g. Library closed on 15th Aug for Independence Day.',notice_save:'Update Notice',notice_clear:'Remove Notice',notice_saved:'Notice updated!',notice_removed:'Notice removed',notice_tag:'Notice'},
+mr:{nav_sub:'समुदाय वाचनालय – आकनूर',nav_home:'मुख्य पृष्ठ',nav_books:'पुस्तके',nav_mybooks:'माझी पुस्तके',nav_req:'विनंती',nav_admin:'प्रशासक',logout:'लॉगआउट',a_borrow_reqs:'उधार विनंत्या',borrow_reqs_sub:'पुस्तक वाचकाला दिल्यानंतर विनंत्या मंजूर करा.',pend_borrows:'प्रलंबित उधार',borrow_approval_title:'प्रशासक मंजुरी आवश्यक',borrow_approval_note:'तुमची विनंती प्रशासकाद्वारे तपासली जाईल. पुस्तक दिल्यानंतर प्रशासक ते उधार म्हणून नोंदवतील.',send_borrow_req:'उधार विनंती पाठवा',borrow_req_sent:'उधार विनंती पाठवली! प्रशासकाच्या मंजुरीची प्रतीक्षा करा.',approve_borrow:'मंजूर करा व उधार नोंदवा',decline_borrow:'नाकारा',borrow_approved:'उधार मंजूर! पुस्तक उधार नोंदवले.',borrow_declined:'विनंती नाकारली.',confirm_approve_borrow:'पुस्तक वाचकाला दिले आहे. उधार म्हणून नोंदवायचे?',confirm_decline_borrow:'ही उधार विनंती नाकारायची?',loading:'लोड होत आहे...',google_btn:'Google ने सुरू ठेवा',or:'किंवा',login:'लॉगिन',register:'नोंदणी',email_l:'ईमेल पत्ता',pw_l:'पासवर्ड',cpw_l:'पुन्हा पासवर्ड',name_l:'पूर्ण नाव',mob_l:'मोबाईल नंबर',age_l:'वय',send_otp:'ईमेलवर OTP पाठवा',otp_sent:'OTP पाठवले:',otp_l:'६ अंकी OTP टाका',verify_btn:'सत्यापित करा',back:'मागे',no_otp:'OTP मिळाले नाही?',resend:'OTP पुन्हा पाठवा',login_btn:'वाचनालयात लॉगिन करा',terms:'पुढे जाऊन आपण अटी मान्य करता.',demo_hint:'डेमो लॉगिन',demo_pw:'कोणताही पासवर्ड',hero_badge:'समुदाय वाचनालय',hero_sub:'तुमच्या वाचनालयात स्वागत. पुस्तके शोधा आणि ज्ञान मिळवा.',browse_btn:'पुस्तके पाहा',req_btn:'पुस्तक मागणी',total_bks:'एकूण पुस्तके',avail_bks:'उपलब्ध',readers:'वाचक',featured:'वैशिष्ट्यीकृत पुस्तके',view_all:'सर्व पाहा',all_bks:'सर्व पुस्तके',all_bks_sub:'संपूर्ण संग्रह पाहा.',no_bks:'पुस्तक सापडले नाही',no_bks_sub:'वेगळे शोध शब्द वापरा.',my_bks:'माझी वाचायला पुस्तके',no_myb:'वाचायला पुस्तके नाहीत',no_myb_sub:'अजून पुस्तक वाचायला घेतले नाही.',req_pg:'पुस्तक मागणी',req_pg_sub:'पुस्तक सापडत नाही? मागणी सादर करा!',bk_name:'पुस्तकाचे नाव',auth_name:'लेखकाचे नाव',submit_req:'मागणी सादर करा',admin_pg:'प्रशासक पॅनेल',a_dash:'डॅशबोर्ड',a_bks:'पुस्तके व्यवस्थापित करा',a_borrows:'वाचायला',a_reqs:'मागण्या',a_users:'वापरकर्ते',active_brs:'सक्रिय वाचायला',pend_reqs:'प्रलंबित मागण्या',overdue:'थकीत पुस्तके',add_bk:'पुस्तक जोडा',save_bk:'जतन करा',price_l:'किंमत (₹)',cancel:'रद्द करा',borrow_bk:'पुस्तक वाचायला घ्या',due_note:'परत तारीख :',confirm_borrow:'वाचायला निश्चित करा',avail:'उपलब्ध',borrowed_st:'वाचकास दिले',returned_st:'परत केले',pending_st:'प्रलंबित',fulfilled_st:'पूर्ण',rejected_st:'नाकारले',make_admin:'प्रशासक करा',make_reader:'वाचक करा',mark_ret:'परत चिन्हांकित करा',fulfill:'पूर्ण करा',reject:'नाकारा',edit:'संपादित करा',delete:'हटवा',col_bk:'पुस्तक',col_reader:'वाचक',col_borrowed:'वाचायला घेतले',col_due:'परत तारीख',col_st:'स्थिती',ph_email:'tumcha@email.com',ph_pw:'पासवर्ड टाका',ph_name:'तुमचे पूर्ण नाव',ph_mob:'१०-अंकी क्रमांक',ph_age:'तुमचे वय',ph_pw_min:'किमान ६ अक्षरे',ph_cpw:'पासवर्ड पुन्हा टाका',ph_search:'शीर्षक किंवा लेखकाने शोधा...',ph_bk_name:'पुस्तकाचे नाव टाका',ph_auth_name:'लेखकाचे नाव टाका',col_pub:'प्रकाशन',ph_pub:'प्रकाशन टाका',ph_fname:'पूर्ण नाव',ph_mob_10:'१०-अंकी मोबाईल',borrow_success:'पुस्तक यशस्वीरित्या वाचायला दिले!',add_success:'पुस्तक यशस्वीरित्या जोडले!',update_success:'पुस्तक यशस्वीरित्या अपडेट केले!',ret_success:'पुस्तक यशस्वीरित्या परत केले!',ph_price:'०',footer_cr:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव. | डिझाईन: विनयराज कोरे',footer_copy:'© २०२५ अक्षरधारा वाचनालय. सर्व हक्क राखीव.',footer_by:'डिझाईन:',borrowed_by:'वाचकाचे नाव',contact:'संपर्क',notice_admin_title:'सूचना पट्टी',notice_admin_sub:'हेडरखाली सर्वांना दिसणारी सरकती सूचना सेट करा. काढण्यासाठी रिकामे ठेवून जतन करा.',notice_ph:'उदा. १५ ऑगस्ट रोजी वाचनालय बंद राहील.',notice_save:'सूचना अद्ययावत करा',notice_clear:'सूचना काढा',notice_saved:'सूचना अद्ययावत झाली!',notice_removed:'सूचना काढली',notice_tag:'सूचना'}
 };
 function t(k){return T[LANG][k]||T.en[k]||k}
 
@@ -1098,15 +1160,31 @@ async function api(params,method='GET'){
       else if(a==='registerEmail')res({success:true,user:{id:'u3',name:params.name,email:params.email,role:'reader',mobile:params.mobile}});
       else if(a==='googleAuth')res({success:true,user:{id:'u4',name:params.name,email:params.email,role:'reader'}});
       else if(a==='getBooks')res({success:true,notice:MOCK_NOTICE,books:[
-        {id:'b1',bookName:'Chava (छावा)',authorName:'Shivaji Sawant',publication:'Mehta Publishing House',price:450,isAvailable:true},
+        {id:'b1',bookName:'Chava (छावा)',authorName:'Shivaji Sawant',publication:'Mehta Publishing House',price:450,isAvailable:!MOCK_BORROW_REQS.find(r=>r.bookID==='b1'&&r.status==='pending')},
         {id:'b2',bookName:'Yayati (ययाति)',authorName:'V.S. Khandekar',publication:'Mehta Publishing House',price:300,isAvailable:false,readerName:'Ram Patil',mobile:'9876543210'},
         {id:'b3',bookName:'Mrutyunjay (मृत्युंजय)',authorName:'Shivaji Sawant',publication:'Continental Prakashan',price:500,isAvailable:true},
         {id:'b4',bookName:"Shyamchi Aai (श्यामची आई)",authorName:'Sane Guruji',publication:'Venus Prakashan',price:150,isAvailable:true},
         {id:'b5',bookName:"Batatyachi Chal (बटाट्याची चाळ)",authorName:'P.L. Deshpande',price:200,isAvailable:true},
         {id:'b6',bookName:'Kosala (कोसला)',authorName:'Bhalchandra Nemade',publication:'Popular Prakashan',price:280,isAvailable:false,readerName:'Sita More',mobile:'9876543211'},
       ]});
-      else if(a==='getDashboard')res({success:true,notice:MOCK_NOTICE,stats:{totalBooks:6,availableBooks:4,activeBorrows:2,pendingRequests:1,totalUsers:5},overdue:[]});
+      else if(a==='getDashboard'){const pendBwr=MOCK_BORROW_REQS.filter(r=>r.status==='pending').length;res({success:true,notice:MOCK_NOTICE,stats:{totalBooks:6,availableBooks:4,activeBorrows:2,pendingRequests:1,pendingBorrows:pendBwr,totalUsers:5},overdue:[]});}
       else if(a==='updateNotice'){MOCK_NOTICE=params.noticeText||'';res({success:true,message:MOCK_NOTICE?'Notice updated!':'Notice removed'});}
+      else if(a==='requestBorrow'){
+        const req={id:'bwr'+Date.now(),bookID:params.bookID,bookName:params.bookName,readerName:params.readerName,mobile:params.mobile,requestDate:new Date().toISOString(),status:'pending'};
+        MOCK_BORROW_REQS.push(req);
+        res({success:true,message:'Borrow request sent!'});
+      }
+      else if(a==='getBorrowRequests')res({success:true,borrowRequests:MOCK_BORROW_REQS.filter(r=>r.status==='pending')});
+      else if(a==='approveBorrowRequest'){
+        const req=MOCK_BORROW_REQS.find(r=>r.id===params.requestID);
+        if(req){req.status='approved';req.borrowDate=new Date().toISOString();const due=new Date();due.setDate(due.getDate()+10);req.dueDate=due.toISOString();}
+        res({success:true,message:'Borrow approved!'});
+      }
+      else if(a==='declineBorrowRequest'){
+        const req=MOCK_BORROW_REQS.find(r=>r.id===params.requestID);
+        if(req)req.status='declined';
+        res({success:true,message:'Request declined.'});
+      }
       else if(a==='getMyBooks')res({success:true,myBooks:[{bookName:'Chava (छावा)',borrowDate:'2026-08-01',dueDate:'2026-08-11',status:'borrowed'}]});
       else if(a==='getAllBorrowed')res({success:true,borrowed:[
         {id:'bw1',bookID:'b2',bookName:'Yayati (ययाति)',readerName:'Ram Patil',mobile:'9876543210',borrowDate:'2026-08-05',dueDate:'2026-08-15',status:'borrowed'},
@@ -1296,20 +1374,29 @@ async function confirmBorrow(){
   const rn=v('bw-name'),mb=v('bw-mob');
   if(!rn||!mb){toast('Name and mobile required','error');return;}
   if(!/^\d{10}$/.test(mb)){toast('Enter valid 10-digit mobile','error');return;}
-  load(true);const r=await api({action:'borrowBook',bookID:PENDING_BK,readerName:rn,mobile:mb,userID:CU.id},'POST');load(false);
+  const bkName=document.getElementById('borrow-bk-title').textContent;
+  load(true);const r=await api({action:'requestBorrow',bookID:PENDING_BK,bookName:bkName,readerName:rn,mobile:mb,userID:CU.id},'POST');load(false);
   if(r.error){toast(r.error,'error');return;}
-  toast(t('borrow_success')||'Book borrowed successfully!','success');closeBorrow();
-  BOOKS=BOOKS.map(b=>b.id===PENDING_BK?{...b,isAvailable:false}:b);
-  renderGrid(BOOKS,'bks-grid');renderGrid(BOOKS.slice(0,6),'home-grid');
+  toast(t('borrow_req_sent')||'Borrow request sent! Awaiting admin approval.','success');
+  closeBorrow();
+  /* Book stays available until admin approves — no UI change here */
 }
 
 async function loadAdmin(){if(!CU||CU.role!=='admin'){toast('Admin access required','error');showPage('home-page');return;}aTab('dash');}
 function aTab(tab){
   document.querySelectorAll('.admin-sec').forEach(s=>s.classList.remove('active'));
   document.getElementById('a-'+tab).classList.add('active');
-  const tabs=['dash','bks','borrows','reqs','users'];
-  document.querySelectorAll('.atab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
-  if(tab==='dash')loadDash();if(tab==='bks')loadABks();if(tab==='borrows')loadABorrows();
+  const tabIds=['dash','bks','borrow-reqs','borrows','reqs','users'];
+  tabIds.forEach(id=>{
+    const btn=document.getElementById('atab-'+id);
+    if(btn)btn.classList.toggle('active',id===tab);
+  });
+  if(tab==='dash')loadDash();
+  if(tab==='bks')loadABks();
+  if(tab==='borrows')loadABorrows();
+  if(tab==='borrow-reqs')loadABorrowReqs();
+  if(tab==='reqs')loadAReqs();
+  if(tab==='users')loadAUsers();
 }
 async function loadDash(){
   load(true);const r=await api({action:'getDashboard',userID:CU.id});load(false);
@@ -1321,6 +1408,9 @@ async function loadDash(){
     document.getElementById('st-br').textContent=r.stats.activeBorrows||0;
     document.getElementById('st-rq').textContent=r.stats.pendingRequests||0;
     document.getElementById('st-us').textContent=r.stats.totalUsers||0;
+    const pb=r.stats.pendingBorrows||0;
+    const stBwr=document.getElementById('st-bwr');if(stBwr)stBwr.textContent=pb;
+    updateBorrowBadge(pb);
   }
   const os=document.getElementById('overdue-sec'),ob=document.getElementById('od-body');
   if(r.overdue&&r.overdue.length>0){
@@ -1342,6 +1432,55 @@ async function loadABorrows(){
       <a class="wa-btn" href="https://wa.me/91${b.mobile}?text=${encodeURIComponent('नमस्कार, तुम्ही घेतलेले पुस्तक ' + b.bookName + ' परत करण्याची तारीख संपली आहे. कृपया पुस्तक लवकर परत करा.')}" target="_blank">${I.phone} WA</a>
     `:'&mdash;'}</div></td></tr>`;
   }).join('');
+}
+function updateBorrowBadge(count){
+  const badge=document.getElementById('borrow-reqs-badge');
+  if(!badge)return;
+  if(count>0){badge.textContent=count;badge.classList.remove('hidden');}
+  else{badge.classList.add('hidden');}
+}
+async function loadABorrowReqs(){
+  load(true);const r=await api({action:'getBorrowRequests',userID:CU.id});load(false);
+  if(r.error){toast(r.error,'error');return;}
+  const reqs=r.borrowRequests||[];
+  const body=document.getElementById('bwr-body');
+  const empty=document.getElementById('bwr-empty');
+  updateBorrowBadge(reqs.length);
+  if(!reqs.length){
+    body.innerHTML='';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  body.innerHTML=reqs.map(req=>{
+    return`<tr>
+      <td><strong>${esc(req.bookName)}</strong></td>
+      <td>${esc(req.readerName)}</td>
+      <td>${esc(req.mobile)}<br><a class="wa-btn" href="https://wa.me/91${esc(req.mobile)}?text=${encodeURIComponent('नमस्कार '+req.readerName+', तुम्ही '+req.bookName+' या पुस्तकासाठी उधार विनंती केली आहे. कृपया ग्रंथालयात या.')}" target="_blank" style="margin-top:4px;display:inline-flex">${I.phone} WA</a></td>
+      <td>${dt(req.requestDate)}</td>
+      <td><span class="badge badge-yellow">${I.calendar} Pending</span></td>
+      <td>
+        <div class="flex gap-6" style="flex-wrap:wrap">
+          <button class="btn btn-green btn-xs" onclick="approveBorrow('${req.id}','${req.bookID}')">${I.check} ${t('approve_borrow')}</button>
+          <button class="btn btn-danger btn-xs" onclick="declineBorrow('${req.id}')">${I.x_c} ${t('decline_borrow')}</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+async function approveBorrow(reqId, bookId){
+  if(!confirm(t('confirm_approve_borrow')))return;
+  load(true);const r=await api({action:'approveBorrowRequest',requestID:reqId,bookID:bookId,requesterUserID:CU.id},'POST');load(false);
+  if(r.error){toast(r.error,'error');return;}
+  toast(t('borrow_approved'),'success');
+  loadABorrowReqs();
+}
+async function declineBorrow(reqId){
+  if(!confirm(t('confirm_decline_borrow')))return;
+  load(true);const r=await api({action:'declineBorrowRequest',requestID:reqId,requesterUserID:CU.id},'POST');load(false);
+  if(r.error){toast(r.error,'error');return;}
+  toast(t('borrow_declined'),'info');
+  loadABorrowReqs();
 }
 async function loadAReqs(){
   load(true);const r=await api({action:'getRequests'});load(false);if(r.error){toast(r.error,'error');return;}
