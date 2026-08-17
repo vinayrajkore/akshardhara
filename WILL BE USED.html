@@ -645,10 +645,10 @@ img{max-width:100%;height:auto}
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  display: flex;
-  align-items: center;
-  background: #fef3c7;   /* explicit so it never inherits dark colors */
+  display: block;
+  background: #fef3c7;
   padding: 0 16px 0 12px;
+  line-height: 36px; /* perfectly centers text matching min-height */
 }
 .notice-marquee {
   display: inline-block;
@@ -667,6 +667,7 @@ body.has-notice #auth-page.active  { padding-top: calc(var(--nav-h) + 36px + 24p
 body.has-notice .hero              { padding-top: calc(var(--nav-h) + 36px + 48px) !important; }
 @media(max-width:560px){
   .notice-bar                             { min-height:32px; }
+  .notice-scroll                          { line-height:32px; }
   body.has-notice .page.active            { padding-top: calc(var(--nav-h) + 32px) !important; }
   body.has-notice #auth-page.active       { padding-top: calc(var(--nav-h) + 32px + 16px) !important; }
   body.has-notice .hero                   { padding-top: calc(var(--nav-h) + 32px + 48px) !important; }
